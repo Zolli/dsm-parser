@@ -45,7 +45,7 @@ class SocketReader(object):
                     continue
 
                 for data in lines:
-                    self.telegram_buffer.append(data.decode('ascii'))
+                    self.telegram_buffer.append(data.decode('utf-8', 'ignore'))
 
                 for telegram in self.telegram_buffer.get_all():
                     try:
@@ -78,7 +78,7 @@ class SocketReader(object):
                     continue
 
                 for data in lines:
-                    self.telegram_buffer.append(data.decode('ascii'))
+                    self.telegram_buffer.append(data.decode('ascii', 'ignore'))
 
                     for telegram in self.telegram_buffer.get_all():
                         try:
