@@ -32,6 +32,9 @@ def create_dsmr_protocol(dsmr_version, telegram_callback, loop=None):
     elif dsmr_version == "5L":
         specification = telegram_specifications.LUXEMBOURG_SMARTY
         serial_settings = SERIAL_SETTINGS_V5
+    elif dsmr_version == "5S":
+        specification = telegram_specifications.SWEDEN
+        serial_settings = SERIAL_SETTINGS_V5
     else:
         raise NotImplementedError("No telegram parser found for version: %s",
                                   dsmr_version)
@@ -88,7 +91,7 @@ class DSMRProtocol(asyncio.Protocol):
 
     def data_received(self, data):
         """Add incoming data to buffer."""
-        data = data.decode('ascii')
+        data = data.decode('ascii', 'ignore')
         self.log.debug('received data: %s', data)
         self.telegram_buffer.append(data)
 
